@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #F2F2F2;
+        }
+
+        .clock-container {
+            width: 181px;
+            height: 181px;
+            position: relative;
+            background: #F8F8F8;
+            box-shadow: 0px 4px 15px 1px rgba(0, 0, 0, 0.15);
+            border-radius: 50%;
+        }
+
+        .inner-circle {
+            width: 139px;
+            height: 139px;
+            position: absolute;
+            background: #F8F8F8;
+            box-shadow: 2px 3px 7px 1px rgba(0, 0, 0, 0.15);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .center-circle {
+            width: 12px;
+            height: 12px;
+            background: #DF8981;
+            box-shadow: 1px 3px 2px rgba(0, 0, 0, 0.15);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            position: absolute;
+        }
+
+        .hand {
+            position: absolute;
+            background: rgba(0, 0, 0, 0.50);
+            transform-origin: 50% 100%;
+            left: 50%;
+            top: 50%;
+        }
+
+        .second-hand {
+            width: 2px;
+            height: 50px;
+        }
+
+        .minute-hand {
+            width: 3px;
+            height: 48px;
+        }
+
+        .hour-hand {
+            width: 6px;
+            height: 30px;
+        }
+    </style>
+    <title>Clock</title>
+</head>
+<body>
+    <div class="clock-container">
+        <div class="inner-circle"></div>
+        <div class="hand second-hand"></div>
+        <div class="hand minute-hand"></div>
+        <div class="hand hour-hand"></div>
+        <div class="center-circle"></div>
+    </div>
+
+    <script>
+        function updateClock() {
+            const secondHand = document.querySelector('.second-hand');
+            const minuteHand = document.querySelector('.minute-hand');
+            const hourHand = document.querySelector('.hour-hand');
+
+            const now = new Date();
+            const seconds = now.getSeconds();
+            const minutes = now.getMinutes();
+            const hours = now.getHours();
+
+            const secondDeg = seconds * 6;
+            const minuteDeg = minutes * 6 + seconds * 0.1;
+            const hourDeg = hours * 30 + minutes * 0.5;
+
+            secondHand.style.transform = `translate(-50%, -100%) rotate(${secondDeg}deg)`;
+            minuteHand.style.transform = `translate(-50%, -100%) rotate(${minuteDeg}deg)`;
+            hourHand.style.transform = `translate(-50%, -100%) rotate(${hourDeg}deg)`;
+
+            setTimeout(updateClock, 1000); // Update every second
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            updateClock(); // Initial call
+        });
+    </script>
+</body>
+</html>
